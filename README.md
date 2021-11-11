@@ -54,4 +54,4 @@ The app was created and is maintained by **[Vlad Giurgila](https://github.com/Dr
 
 ## Copyright and License
 
-Copyright 2019 Vlad Giurgila.
+Copyright 2021 Vlad Giurgila.
