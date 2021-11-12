@@ -27,6 +27,9 @@ class App extends React.Component {
   render() {
     const garments = [];
     this.pagesNumber = Math.floor(this.state.garmentsToDisplay.length / this.itemsPerPage);
+    if (!(this.state.garmentsToDisplay.length % this.itemsPerPage)) {
+      this.pagesNumber--;
+    }
     const garmentsListStart = this.state.pageIndex * this.itemsPerPage;
     let garmentsListEnd = garmentsListStart + this.itemsPerPage;
     if (garmentsListEnd > this.state.garmentsToDisplay.length) {
@@ -54,7 +57,7 @@ class App extends React.Component {
       <div className="page-container">
 
         <input type="text" className="search-input" placeholder="Search product..." onChange={event => this.search(event.target.value)} />
-        <div className="items-per-page">Displaying {this.itemsPerPage} items per page - Showing {this.state.pageIndex + 1} of {this.pagesNumber}</div>
+        <div className="items-per-page">Displaying {this.itemsPerPage} items per page - Showing {this.state.pageIndex + 1} of {this.pagesNumber + 1}</div>
 
         <div className="navigation-buttons">
           <div className="navigation-button" onClick={event => this.changePage(false)}>Previous Page</div>
@@ -99,7 +102,7 @@ class App extends React.Component {
 
   changePage(next) {
     if (next) {
-      if (this.state.pageIndex < this.pagesNumber - 1) {
+      if (this.state.pageIndex < this.pagesNumber) {
         this.setState({ pageIndex: this.state.pageIndex + 1 });
       }
     } else {
