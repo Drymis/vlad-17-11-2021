@@ -18,6 +18,11 @@ const garmentSchema = new mongoose.Schema(
       unique: false,
       required: true,
     },
+    discount: {
+      type: Number,
+      unique: false,
+      required: true,
+    },
     image_urls: [{
       type: String, 
       unique: false,

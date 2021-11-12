@@ -5,7 +5,7 @@ const Garment = require('../models/garment');
 /**
     * Get garments
     *
-    * @api {get} /garments
+    * @api {get} /garment
     * 01. Get Garments
     *
     * @apiName  GarmentsSearch
@@ -75,12 +75,12 @@ router.get('', function (req, res, next) {
   }
 
   Garment.find(findParams)
-    // .limit(10)
+    .limit(100)
     .exec(function (err, docs) { 
       if (err) {
         res.status(400).json({message: err.message});
       } else {
-        res.status(200).json({docs}); 
+        res.status(200).json(docs); 
       }
     });
 });
