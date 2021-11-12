@@ -10,18 +10,18 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.itemsPerPage = 15;
+    this.itemsPerPage = 10;
     this.state = {
       garmentsToDisplay: [],
       pageIndex: 0
     };
+    this.search = debounce((text) => {
+      this.fetchAndUpdateGarments(text);
+    }, this.inputDebounceTimeMS);
   }
 
   componentDidMount() {
-    this.fetchGarments().then((response) => {
-      console.log('response', response)
-      this.updateGarmets(response.docs); 
-    });
+    this.fetchAndUpdateGarments();
   }
 
   render() {
@@ -32,7 +32,6 @@ class App extends React.Component {
     if (garmentsListEnd > this.state.garmentsToDisplay.length) {
       garmentsListEnd = this.state.garmentsToDisplay.length;
     }
-    console.log(garmentsListStart, garmentsListEnd)
     const garmentsList = this.state.garmentsToDisplay.slice(garmentsListStart, garmentsListEnd);
     garmentsList.forEach((garment, garmentIndex) => {
       garments.push(
@@ -55,7 +54,7 @@ class App extends React.Component {
       <div className="page-container">
 
         <input type="text" className="search-input" placeholder="Search product..." onChange={event => this.search(event.target.value)} />
-        <div className="items-per-page">Displaying {this.itemsPerPage} items per page - Showing {this.state.pageIndex + 1} of {this.pagesNumber + 1}</div>
+        <div className="items-per-page">Displaying {this.itemsPerPage} items per page - Showing {this.state.pageIndex + 1} of {this.pagesNumber}</div>
 
         <div className="navigation-buttons">
           <div className="navigation-button" onClick={event => this.changePage(false)}>Previous Page</div>
@@ -85,16 +84,22 @@ class App extends React.Component {
       .catch(error => console.log(error));
   }
 
-  updateGarmets(result) {
+  updateGarments(result) {
     this.setState({
       garmentsToDisplay: result,
       pageIndex: 0
     });
   }
 
+  fetchAndUpdateGarments(search = undefined) {
+    this.fetchGarments(search).then((response) => {
+      this.updateGarments(response); 
+    });
+  }
+
   changePage(next) {
     if (next) {
-      if (this.state.pageIndex < this.pagesNumber) {
+      if (this.state.pageIndex < this.pagesNumber - 1) {
         this.setState({ pageIndex: this.state.pageIndex + 1 });
       }
     } else {
@@ -103,13 +108,6 @@ class App extends React.Component {
       }
     }
   }
-
-  search = debounce((text) => {
-    this.fetchGarments(text).then((response) => {
-      console.log('response', response)
-      this.updateGarmets(response.docs); 
-    });
-  }, this.inputDebounceTimeMS);
 }
 
 export default App;
