@@ -5,6 +5,7 @@
   "scripts": {
     "start": "SET DEBUG=intelistyle-backend:* & node ./bin/www",
     "test": "SET NODE_ENV=test&& mocha",
+    "test-with-coverage": "SET NODE_ENV=test&& nyc mocha",
     "apidoc": "apidoc -i routes/ -o docs/ -e \"(node_modules|public)\" -o public/apidoc"
   },
   "dependencies": {
@@ -21,6 +22,7 @@
   "devDependencies": {
     "apidoc": "^0.50.1",
     "mocha": "^9.1.3",
+    "nyc": "^15.1.0",
     "supertest": "^6.1.6"
   }
 }
