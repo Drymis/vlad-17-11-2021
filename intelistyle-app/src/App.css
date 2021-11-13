@@ -6,10 +6,21 @@
     /* background-color: #070a0e; */
 }
 
+.app-error, .app-loading, .app-message {
+    font-weight: 500;
+    font-size: 12px;
+    margin: 100px 10px;
+}
+
+.app-error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 .page-container {
     display: flex;
     flex-direction: column;
-    background-color: #f9fafb;
 }
 
 .search-input {
