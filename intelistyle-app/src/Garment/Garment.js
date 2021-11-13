@@ -33,15 +33,15 @@ function Garment(props) {
       >
         {productImages}
       </Carousel>
-      <div className="card-title">{props.title}</div>
+      <div className="card-title">{props.title || 'Title'}</div>
       <div className="card-double-item">
-        <div className="card-brand">{props.brand}</div>
-        <div className="card-gender">{props.gender}</div>
+        <div className="card-brand">{props.brand || 'Brand'}</div>
+        <div className="card-gender">{props.gender || 'Gender'}</div>
       </div>
-      <div className="card-description">{props.description}</div>
+      <div className="card-description">{props.description || 'Description'}</div>
       <div className="card-double-item">
-        <div className="card-stock">{props.stock} in stock</div>
-        <div className="card-price">{props.currency} {props.price.toFixed(2)}</div>
+        <div className="card-stock">{props.stock || 'Stock'} in stock</div>
+        <div className="card-price">{props.currency || 'Currency'} {props.price?.toFixed(2) || 'Price'}</div>
       </div>
       <div className="card-cta" onClick={event => window.open(props.url, '_blank')}>Visit Shop</div>
     </div>
