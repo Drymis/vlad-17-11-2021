@@ -1,6 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, fireEvent, spyOn } from '@testing-library/react';
 import Garment from './Garment';
 import { VISIT_SHOP_KEY } from './../App.test';
+
+window.open = jest.fn();
 
 test('Garment content', async () => {
   const { container } = render(<Garment />);
@@ -28,7 +30,18 @@ test('Garment content', async () => {
     expect(price).not.toHaveLength(0);
 
     const image = cardElement.querySelector('img');
-    expect(image.src).not.toHaveLength(0);
+    const imageSrc = JSON.stringify(image.src);
+    expect(imageSrc).not.toHaveLength(0);
+    expect(image).toHaveAttribute('src');
+    expect(image).toHaveAttribute('alt');
+    
+    fireEvent.error(image);
+    expect(imageSrc).not.toHaveLength(0);
+    expect(image).toHaveAttribute('src');
+    expect(image).toHaveAttribute('alt');
+
+    fireEvent.click(visitShopButton);
+    expect(window.open).toBeCalled();
   });
 
 });

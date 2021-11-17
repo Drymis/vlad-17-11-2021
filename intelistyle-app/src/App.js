@@ -7,6 +7,7 @@ var debounce = require('lodash.debounce');
 class App extends React.Component {
 
   inputDebounceTimeMS = 300;
+  _isMounted = false;
 
   constructor(props) {
     super(props);
@@ -21,7 +22,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     this.fetchAndUpdateGarments();
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -37,24 +43,27 @@ class App extends React.Component {
       if (garmentsListEnd > this.state.garmentsToDisplay.length) {
         garmentsListEnd = this.state.garmentsToDisplay.length;
       }
-      const garmentsList = this.state.garmentsToDisplay.slice(garmentsListStart, garmentsListEnd);
-      garmentsList.forEach((garment, garmentIndex) => {
-        garments.push(
-          <Garment
-            key={garmentIndex}
-            title={garment.product_title}
-            description={garment.product_description}
-            gender={garment.gender}
-            stock={garment.stock}
-            brand={garment.brand}
-            price={garment.price}
-            currency={garment.currency_code}
-            categories={garment.product_categories}
-            // images={garment.images}
-            url={garment.url}
-          />
-        );
-      });
+
+      if (this.state.garmentsToDisplay.length) {
+        const garmentsList = this.state.garmentsToDisplay.slice(garmentsListStart, garmentsListEnd);
+        garmentsList.forEach((garment, garmentIndex) => {
+          garments.push(
+            <Garment
+              key={garmentIndex}
+              title={garment.product_title}
+              description={garment.product_description}
+              gender={garment.gender}
+              stock={garment.stock}
+              brand={garment.brand}
+              price={garment.price}
+              currency={garment.currency_code}
+              categories={garment.product_categories}
+              images={garment.images}
+              url={garment.url}
+            />
+          );
+        });
+      }
     }
 
     let appContent;
@@ -93,7 +102,7 @@ class App extends React.Component {
   fetchGarments(search = undefined) {
     let queryParams = '';
     if (search && search !== '') {
-      queryParams += `?search=${search}`;
+      queryParams += `?search=${encodeURIComponent(search)}`;
     }
     return fetch(
       `${process.env.REACT_APP_API_HOST}/garment${queryParams}`,
@@ -121,13 +130,15 @@ class App extends React.Component {
   }
 
   fetchAndUpdateGarments(search = undefined) {
-    this.setState({
-      garmentsToDisplay: null,
-      pageIndex: 0
-    });
-    this.fetchGarments(search).then((response) => {
-      this.updateGarments(response);
-    });
+    if (this._isMounted) {
+      this.setState({
+        garmentsToDisplay: null,
+        pageIndex: 0
+      });
+      this.fetchGarments(search).then((response) => {
+        this.updateGarments(response);
+      });
+    }
   }
 
   changePage(next) {

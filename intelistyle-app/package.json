@@ -40,5 +40,8 @@
   },
   "devDependencies": {
     "react-test-renderer": "^17.0.2"
+  },
+  "jest": {
+    "coveragePathIgnorePatterns": ["index.js", "reportWebVitals.js"]
   }
 }
