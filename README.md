@@ -16,9 +16,11 @@ The project is split between frontend `React App` and backend `Express (NodeJS) 
 
 ```
 .
- ├── intelistyle-app              # React App
- ├── intelistyle-backend          # Express (NodeJS) App
- ├── coding-exercise.pdf          # Contains test instructions
+ ├── intelistyle-app                                          # React App
+ ├── intelistyle-backend                                      # Express (NodeJS) App
+ ├── coding-exercise.pdf                                      # Contains test instructions
+ ├── scaling-infrastructure-architecture-diagram.png          # Scaling infrastructure diagram
+ ├── garments_to_mongo.ipynb                                  # MongoDB import script
 ```
 #### [React App Configuration](https://github.com/Drymis/vlad-17-11-2021/tree/main/intelistyle-app)
 
