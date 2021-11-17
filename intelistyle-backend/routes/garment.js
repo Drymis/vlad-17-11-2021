@@ -71,18 +71,31 @@ router.get('', function (req, res, next) {
       regexExpr += `(?=.*${element})`;
     });
     regexExpr += '.*';
-    findParams = {product_title: { $regex : regexExpr, $options: 'gi' }};
-  }
 
-  Garment.find(findParams)
-    .limit(100)
-    .exec(function (err, docs) { 
-      if (err) {
-        res.status(400).json({message: err.message});
-      } else {
-        res.status(200).json(docs); 
-      }
-    });
+    // indexed search using first word in search
+    // and filtering using regex
+    findParams = {
+      $and: [{
+        $text: {
+          $search: search.split(' ')[0]
+        }
+      }, {
+        product_title: { 
+          $regex: regexExpr, $options: 'gi'
+        }
+      }]
+    };
+  }
+  const findQuery = Garment.find(findParams);
+  findQuery.limit(1000);
+  findQuery.setOptions({ lean: true });
+  findQuery.exec(function (err, docs) {
+    if (err) {
+      res.status(400).json({ message: err.message });
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
 
 module.exports = router;

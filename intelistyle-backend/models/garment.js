@@ -93,7 +93,7 @@ const garmentSchema = new mongoose.Schema(
   { timestamps: true },
 );
 
-// garmentSchema.index({product_title: 'text', product_description: 'text'});
+garmentSchema.index({product_title: 'text'});
  
 module.exports = Garment = mongoose.model('Garment', garmentSchema);
  
