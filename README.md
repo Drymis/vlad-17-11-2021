@@ -20,17 +20,13 @@ The project is split between frontend `React App` and backend `Express (NodeJS) 
  ├── intelistyle-backend          # Express (NodeJS) App
  ├── coding-exercise.pdf          # Contains test instructions
 ```
+#### [React App Configuration](https://github.com/Drymis/vlad-17-11-2021/tree/main/intelistyle-app)
 
-### React App Directory
-```
-.
-   ├── ...
-   ├── public                       
-   ├── src                       
-   └── package.json
-   └── README.md
-   └── yarn.lock
-```
+#### [Express (NodeJS) App Configuration](https://github.com/Drymis/vlad-17-11-2021/tree/main/intelistyle-backend)
+
+## Scaling Infrastructure Diagram
+
+![alt text](https://github.com/Drymis/vlad-17-11-2021/blob/main/scaling-infrastructure-architecture-diagram.png)
 
 <!-- ## Before starting
 Before starting make sure you have ionic and cordova installed.
