@@ -5,6 +5,10 @@
 ### Environment
 rename the file `.env.sample` to `.env` and update the variables with your values
 
+Variables:
+
+`REACT_APP_API_HOST` Backend API endpoint
+
 ### Installation
 run the command `npm install`
 
