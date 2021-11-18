@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "SET DEBUG=intelistyle-backend:* & node ./bin/www",
-    "test": "SET NODE_ENV=test&& mocha",
-    "test-with-coverage": "SET NODE_ENV=test&& nyc mocha",
+    "start": "node ./bin/www",
+    "test": "mocha",
+    "test-with-coverage": "nyc mocha",
     "apidoc": "apidoc -i routes/ -o docs/ -e \"(node_modules|public)\" -o public/apidoc"
   },
   "dependencies": {

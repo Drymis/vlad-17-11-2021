@@ -5,7 +5,7 @@ const garmentSchema = new mongoose.Schema(
   {
     product_id: {
       type: Number,
-      unique: true,
+      unique: false,
       required: true,
     },
     stock: {
